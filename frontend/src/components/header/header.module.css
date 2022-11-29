@@ -1,0 +1,23 @@
+.headerContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-content: center;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  /* justify-items: center; */
+  background: var(--background-gradient);
+  height: 50px;
+  border: var(--gold-border);
+  outline: var(--gold-outline);
+  border-radius: var(--border-radius-big);
+  box-shadow: inset 0 0 10px black;
+}
+
+.logo {
+  font-family: var(--header-font);
+  color: white;
+  font-weight: 300;
+  font-size: 20px;
+  text-shadow: 1px 1px 5px black;
+}
