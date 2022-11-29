@@ -37,6 +37,10 @@ io.on("connection", (socket) => {
     io.in(data.room).emit("player_created", players);
   });
 
+  socket.on("send_test_message", (data) => {
+    io.in(data.room).emit("receive_test_message", data.message);
+  });
+
   socket.on("disconnect", () => {
     const index = players.findIndex((player) => player.socketId === socket.id);
     const playerLeaving = players[index];
