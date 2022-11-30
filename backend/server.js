@@ -34,7 +34,9 @@ io.on("connection", (socket) => {
 
     players.push(player);
 
-    io.in(data.room).emit("player_created", players);
+    let playersInRoom = players.filter((p) => p.room === data.room);
+
+    io.in(data.room).emit("player_created", playersInRoom);
   });
 
   socket.on("send_test_message", (data) => {
@@ -47,6 +49,7 @@ io.on("connection", (socket) => {
     if (index !== -1) {
       players.splice(index, 1)[0];
       io.to(playerLeaving.room).emit("updated_players", players);
+      io.in(playerLeaving.room).emit("player_created", players);
     }
   });
 });

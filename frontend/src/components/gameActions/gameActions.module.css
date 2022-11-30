@@ -1,0 +1,12 @@
+.gameActionsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  width: 100vw;
+  justify-items: center;
+  align-items: center;
+  height: 40vh;
+}
+
+/* .gameAction {
+  width: 20vw;
+} */

@@ -1,0 +1,43 @@
+.circle {
+  display: grid;
+  grid-template-areas: "layer";
+  place-items: center;
+  background: url("../../images/tree-of-lexicon.png");
+  background-size: 75%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  --radius: 10vmin;
+  width: calc(2 * var(--radius));
+  height: calc(2 * var(--radius));
+}
+
+.stat {
+  grid-area: layer;
+  width: 4vmin;
+  height: 4vmin;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--background-gradient);
+  color: white;
+  font-family: var(--header-font);
+  /* font-weight: bold; */
+  font-size: 3vmin;
+  --d: calc(var(--i) / var(--total));
+  --r-offset: -0.25turn;
+  --r-amount: 1turn;
+  --r: calc((var(--r-amount) * var(--d)) + var(--r-offset));
+  --transform: rotate(var(--r)) translate(var(--radius))
+    rotate(calc(-1 * var(--r)));
+  transform: var(--transform);
+  transition: transform 1.5s ease-in-out;
+}
+/* .circle:hover .stat {
+  --radius: calc(-20vmin);
+  --r-offset: -1.75turn;
+} */
+
+img {
+  max-width: 40%;
+}

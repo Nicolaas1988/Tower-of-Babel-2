@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
+import GameActions from "../components/gameActions/GameActions";
 import Header from "../components/header/Header";
+import PlayerArea from "../components/playerArea/PlayerArea";
+import styles from "./room.module.css";
 
 function Room() {
   const [roomJoined, setRoomJoined] = useState(false);
@@ -9,6 +12,7 @@ function Room() {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [receivedMessage, setReceivedMessage] = useState("");
+  const [players, setPlayers] = useState([]);
 
   const ENDPOINT =
     window.location.host.indexOf("localhost") >= 0
@@ -39,7 +43,7 @@ function Room() {
       }
 
       socket.on("player_created", (data) => {
-        console.log(JSON.stringify(data));
+        setPlayers(data);
       });
 
       socket.on("updated_players", (data) => {
@@ -66,6 +70,13 @@ function Room() {
   return (
     <div>
       <Header />
+      <GameActions />
+      <div className={styles.playersArena}>
+        {players &&
+          players.map((p) => {
+            return <PlayerArea username={p.username} key={p.socketId} />;
+          })}
+      </div>
       <input
         type="text"
         onChange={testMessageChangeHandler}
