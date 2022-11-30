@@ -47,9 +47,7 @@ function Room() {
       });
 
       socket.on("updated_players", (data) => {
-        console.log(
-          `Shit happened to the player list: ${JSON.stringify(data)}`
-        );
+        setPlayers(data);
       });
 
       socket.on("receive_test_message", (data) => {

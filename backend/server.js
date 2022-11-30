@@ -48,8 +48,9 @@ io.on("connection", (socket) => {
     const playerLeaving = players[index];
     if (index !== -1) {
       players.splice(index, 1)[0];
-      io.to(playerLeaving.room).emit("updated_players", players);
-      io.in(playerLeaving.room).emit("player_created", players);
+      // io.to(playerLeaving.room).emit("updated_players", players);
+      let playersInRoom = players.filter((p) => p.room === playerLeaving.room);
+      io.in(playerLeaving.room).emit("player_created", playersInRoom);
     }
   });
 });
