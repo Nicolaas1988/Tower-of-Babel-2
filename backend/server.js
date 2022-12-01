@@ -13,8 +13,22 @@ app.get("*", (req, res) => {
 const httpServer = http.Server(app);
 
 const io = new Server(httpServer, { cors: { origin: "*" } });
-const users = [];
 const players = [];
+const initialiseLetters = (socketId) => {
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+
+  let randomLetters = [];
+
+  for (let i = 0; i <= 25; i++) {
+    let index = Math.floor(Math.random() * 26);
+
+    let letter = {};
+    letter[`player-${socketId}-letter-${i}`] = letters.charAt(index);
+    randomLetters.push(letter);
+  }
+
+  return randomLetters;
+};
 
 io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
@@ -28,7 +42,7 @@ io.on("connection", (socket) => {
       username: data.username,
       socketId: socket.id,
       room: data.room,
-      letters: [],
+      letters: initialiseLetters(socket.id),
       words: [],
     };
 

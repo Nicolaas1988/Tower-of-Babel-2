@@ -44,6 +44,7 @@ function Room() {
 
       socket.on("player_created", (data) => {
         setPlayers(data);
+        console.log(JSON.stringify(data));
       });
 
       socket.on("updated_players", (data) => {
@@ -72,7 +73,13 @@ function Room() {
       <div className={styles.playersArena}>
         {players &&
           players.map((p) => {
-            return <PlayerArea username={p.username} key={p.socketId} />;
+            return (
+              <PlayerArea
+                username={p.username}
+                key={p.socketId}
+                letters={p.letters}
+              />
+            );
           })}
       </div>
       <input
