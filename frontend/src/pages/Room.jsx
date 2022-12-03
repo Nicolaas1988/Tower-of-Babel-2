@@ -20,6 +20,13 @@ function Room() {
       : window.location.host;
 
   useEffect(() => {
+    window.addEventListener("storage", () => {
+      // console.log("change to local storage!");
+      let newPlayer = JSON.parse(sessionStorage.getItem("playerData"));
+      if (newPlayer) {
+        setPlayers(newPlayer);
+      }
+    });
     setUsername(sessionStorage.getItem("username"));
     setRoom(sessionStorage.getItem("room"));
 
@@ -34,7 +41,7 @@ function Room() {
     if (socket) {
       socket.on("room_joined", (data) => {
         console.log("USer joined room");
-        console.log(JSON.stringify(data));
+
         setRoomJoined(true);
       });
 
@@ -44,7 +51,8 @@ function Room() {
 
       socket.on("player_created", (data) => {
         setPlayers(data);
-        console.log(JSON.stringify(data));
+        sessionStorage.setItem("playerData", JSON.stringify(data));
+        sessionStorage.setItem("socketId", socket.id);
       });
 
       socket.on("updated_players", (data) => {
@@ -76,7 +84,8 @@ function Room() {
             return (
               <PlayerArea
                 username={p.username}
-                key={p.socketId}
+                key={`player-${p.socketId}`}
+                id={`player-${p.socketId}`}
                 letters={p.letters}
               />
             );

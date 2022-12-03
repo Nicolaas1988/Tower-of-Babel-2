@@ -2,18 +2,41 @@
   display: grid;
   grid-template-columns: 100%;
   border: solid 1px black;
-  min-height: 300px;
-  width: 250px;
+  /* min-height: 300px; */
+  min-width: 300px;
   margin: 10px 10px 10px 10px;
+  padding: 10px 5px 30px 5px;
+  border: var(--gold-border);
+  outline: var(--gold-outline);
+  border-radius: var(--border-radius-big);
 }
 
 .playerAreaHeader {
   display: flex;
   justify-content: center;
   width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .lettersContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  overflow-y: auto;
+
+  height: 100px;
+  row-gap: 7px;
+  font-size: 14px;
+}
+
+.wordsContainer {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 100%;
+  /* row-gap: 10px; */
+
+  /* background-color: red; */
 }

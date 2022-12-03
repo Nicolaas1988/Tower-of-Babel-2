@@ -1,0 +1,29 @@
+.wordsArea {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.wordInput {
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid 1px rgb(221, 221, 221);
+  outline: none;
+}
+
+.wordValue {
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-bottom: dashed 1px var(--primary-color);
+  height: 30px;
+  background: rgb(221, 221, 221);
+  /* border-radius: 50%; */
+  /* line-height: 0; */
+}
