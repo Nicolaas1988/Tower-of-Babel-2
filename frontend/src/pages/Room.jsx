@@ -19,22 +19,22 @@ function Room() {
       ? "http://127.0.0.1:4000"
       : window.location.host;
 
-  window.addEventListener("storage", () => {
-    if (socket) {
-      console.log("change to local storage!");
-      let newPlayersData = JSON.parse(sessionStorage.getItem("playerData"));
-      // if (newPlayersData) {
-      //   setPlayers(newPlayersData);
-      // }
-      socket.emit("updateLettersAndWords", { newPlayersData, room });
-      // console.log(`newPlayer data is ${JSON.stringify(newPlayer)}`);
-    }
-  });
-
   useEffect(() => {
     if (socket === null) {
       setSocket(socketIOClient(ENDPOINT));
     }
+
+    window.addEventListener("storage", () => {
+      if (socket) {
+        console.log("change to local storage!");
+        let newPlayersData = JSON.parse(sessionStorage.getItem("playerData"));
+        // if (newPlayersData) {
+        //   setPlayers(newPlayersData);
+        // }
+        socket.emit("updateLettersAndWords", { newPlayersData, room });
+        // console.log(`newPlayer data is ${JSON.stringify(newPlayer)}`);
+      }
+    });
 
     setUsername(sessionStorage.getItem("username"));
     setRoom(sessionStorage.getItem("room"));

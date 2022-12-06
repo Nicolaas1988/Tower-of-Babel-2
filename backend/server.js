@@ -35,7 +35,7 @@ const initialiseEmptyWords = (socketId) => {
 
   for (let i = 1; i <= 6; i++) {
     let word = {};
-    word[`player-${socketId}-word-${i}`] = "#";
+    word[`player-${socketId}-word-${i}`] = "";
     words.push(word);
   }
 
