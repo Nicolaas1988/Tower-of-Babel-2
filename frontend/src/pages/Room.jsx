@@ -19,20 +19,25 @@ function Room() {
       ? "http://127.0.0.1:4000"
       : window.location.host;
 
-  useEffect(() => {
-    window.addEventListener("storage", () => {
-      // console.log("change to local storage!");
-      let newPlayer = JSON.parse(sessionStorage.getItem("playerData"));
-      if (newPlayer) {
-        setPlayers(newPlayer);
-      }
-    });
-    setUsername(sessionStorage.getItem("username"));
-    setRoom(sessionStorage.getItem("room"));
+  window.addEventListener("storage", () => {
+    if (socket) {
+      console.log("change to local storage!");
+      let newPlayersData = JSON.parse(sessionStorage.getItem("playerData"));
+      // if (newPlayersData) {
+      //   setPlayers(newPlayersData);
+      // }
+      socket.emit("updateLettersAndWords", { newPlayersData, room });
+      // console.log(`newPlayer data is ${JSON.stringify(newPlayer)}`);
+    }
+  });
 
+  useEffect(() => {
     if (socket === null) {
       setSocket(socketIOClient(ENDPOINT));
     }
+
+    setUsername(sessionStorage.getItem("username"));
+    setRoom(sessionStorage.getItem("room"));
 
     if (socket && roomJoined === false) {
       socket.emit("join_room", { username, room });
@@ -56,6 +61,13 @@ function Room() {
       });
 
       socket.on("updated_players", (data) => {
+        setPlayers(data);
+        sessionStorage.setItem("playerData", JSON.stringify(data));
+      });
+
+      socket.on("lettersAndWordsUpdated", (data) => {
+        console.log("THIS magical function is reached");
+        sessionStorage.setItem("playerData", JSON.stringify(data));
         setPlayers(data);
       });
 
@@ -87,6 +99,7 @@ function Room() {
                 key={`player-${p.socketId}`}
                 id={`player-${p.socketId}`}
                 letters={p.letters}
+                words={p.words}
               />
             );
           })}

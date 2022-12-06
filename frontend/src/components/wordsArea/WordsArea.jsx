@@ -3,6 +3,7 @@ import styles from "./wordsArea.module.css";
 
 function WordsArea(props) {
   const [allowedLetters, setAllowedLetters] = useState([]);
+  // const [word, setWord] = useState(Object.values(props.word));
   const [word, setWord] = useState("");
 
   useEffect(() => {
@@ -11,8 +12,10 @@ function WordsArea(props) {
       allowed.push(Object.values(el).toString());
     });
 
+    setWord(Object.values(props.word));
+
     setAllowedLetters(allowed);
-  }, [props.allowedLetters]);
+  }, [props.allowedLetters, props.word]);
 
   const changeHandler = (event) => {
     let value = event.target.value;
@@ -35,17 +38,19 @@ function WordsArea(props) {
 
         if (index !== -1) {
           player.letters[index][`player-${socketId}-letter-${index}`] = "";
+
+          player.words[props.idx][props.id] = value;
         }
 
-        const newPlayerData = playerData.map((obj) => {
-          if (obj.socketId === socketId) {
-            return { ...obj, player };
+        const newPlayerData = playerData.map((p) => {
+          if (p.socketId === socketId) {
+            return player;
+          } else {
+            return p;
           }
-
-          return obj;
         });
 
-        console.log(newPlayerData);
+        console.log(`THE NEW PLAYER DATA IS ${JSON.stringify(newPlayerData)}`);
 
         window.sessionStorage.setItem(
           "playerData",

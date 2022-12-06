@@ -13,7 +13,7 @@ app.get("*", (req, res) => {
 const httpServer = http.Server(app);
 
 const io = new Server(httpServer, { cors: { origin: "*" } });
-const players = [];
+let players = [];
 const initialiseLetters = (socketId) => {
   const letters = "abcdefghijklmnopqrstuvwxyz";
 
@@ -30,6 +30,18 @@ const initialiseLetters = (socketId) => {
   return randomLetters;
 };
 
+const initialiseEmptyWords = (socketId) => {
+  let words = [];
+
+  for (let i = 1; i <= 6; i++) {
+    let word = {};
+    word[`player-${socketId}-word-${i}`] = "#";
+    words.push(word);
+  }
+
+  return words;
+};
+
 io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
     socket.join(data.room);
@@ -43,7 +55,7 @@ io.on("connection", (socket) => {
       socketId: socket.id,
       room: data.room,
       letters: initialiseLetters(socket.id),
-      words: [],
+      words: initialiseEmptyWords(socket.id),
     };
 
     players.push(player);
@@ -51,6 +63,12 @@ io.on("connection", (socket) => {
     let playersInRoom = players.filter((p) => p.room === data.room);
 
     io.in(data.room).emit("player_created", playersInRoom);
+  });
+
+  socket.on("updateLettersAndWords", (data) => {
+    players = data.newPlayersData;
+    let playersInRoom = players.filter((p) => p.room === data.room);
+    io.in(data.room).emit("lettersAndWordsUpdated", playersInRoom);
   });
 
   socket.on("send_test_message", (data) => {
