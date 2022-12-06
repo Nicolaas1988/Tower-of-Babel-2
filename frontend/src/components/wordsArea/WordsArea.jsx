@@ -21,7 +21,13 @@ function WordsArea(props) {
     let value = event.target.value;
     let lastChar = value.charAt(value.length - 1);
 
-    if (value.length > word.length) {
+    console.log(`value.length ${value.length}`);
+    console.log(`word.length ${word.length}`);
+
+    if (
+      (value.length === 1 && word.length === 1) ||
+      value.length > word.length
+    ) {
       if (allowedLetters.includes(lastChar)) {
         setWord(value);
         let playerData = JSON.parse(sessionStorage.getItem("playerData"));

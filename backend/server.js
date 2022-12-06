@@ -69,6 +69,7 @@ io.on("connection", (socket) => {
     players = data.newPlayersData;
     let playersInRoom = players.filter((p) => p.room === data.room);
     io.in(data.room).emit("lettersAndWordsUpdated", playersInRoom);
+    // socket.to(data.room).emit("lettersAndWordsUpdated", playersInRoom);
   });
 
   socket.on("send_test_message", (data) => {
