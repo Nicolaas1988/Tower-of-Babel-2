@@ -17,7 +17,7 @@ function WordsArea(props) {
 
     setAllowedLetters(allowed);
 
-    setDisabled(false);
+    // setDisabled(false);
     console.log(`USE EFFECt `);
   }, [props.allowedLetters, props.word]);
 
@@ -89,6 +89,7 @@ function WordsArea(props) {
         ] = word.toString().charAt(word.toString().length - 1);
 
         player.words[props.idx][props.id] = value;
+        player.words[props.idx][`${props.id}-value`] = 1;
       }
 
       const newPlayerData = playerData.map((p) => {

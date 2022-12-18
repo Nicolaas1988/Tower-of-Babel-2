@@ -7,6 +7,27 @@
   height: 40vh;
 }
 
-/* .gameAction {
-  width: 20vw;
+.gameAction {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  row-gap: 15px;
+}
+
+.gameActionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 20vw; */
+  border-radius: 50% 50%;
+  height: 70px;
+  width: 70px;
+  /* background: var(--action-button-gradient);
+  border: var(--gold-border);
+  outline: var(--gold-outline); */
+}
+
+/* .gameActionIcon img {
+  height: 50px;
+  width: 50px;
 } */

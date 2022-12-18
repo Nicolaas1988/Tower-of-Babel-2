@@ -67,6 +67,7 @@ function Room() {
 
       socket.on("lettersAndWordsUpdated", (data) => {
         console.log("THIS magical function is reached");
+        console.log(`new data is ${JSON.stringify(data)}`);
         sessionStorage.setItem("playerData", JSON.stringify(data));
         setPlayers(data);
       });
